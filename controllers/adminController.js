@@ -11,22 +11,24 @@ const addDoctor=async(req,res)=>{
     try {
         const {name,email,password,speciality,degree,experience,about,fees,address}=req.body
         const imageFile=req.file
+        console.log(name,email,password,speciality,degree,experience,about,fees,address);
+        
         
         //checking for all data to add doctor
 
         if(!name || !email || !password || !speciality || !degree || !experience || !about || !fees || !address ){
 
-            return res.json({success:"false",message:"Missing Details"})
+            return res.json({success:false,message:"Missing Details"})
         }
         
         //validating email
         if(!validator.isEmail(email)){
-            return res.json({success:"false",message:"Please enter a valid email"})
+            return res.json({success:false,message:"Please enter a valid email"})
         }
         
         //validating strong password
         if(password.length<8){
-            return res.json({success:"false",message:"Please enter a strong password"})
+            return res.json({success:false,message:"Please enter a strong password"})
         }
 
         //hashing doctors password
@@ -85,4 +87,23 @@ const loginAdmin=async(req,res)=>{
 }
 
 
-export {addDoctor,loginAdmin}
+//get all doctors
+
+const allDoctors=async(req,res)=>{
+    try {
+
+        const doctors=await doctorModel.find({}).select('-password')
+
+        res.json({success:true,doctors})
+
+
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:error.message})
+    }
+}
+
+
+
+
+export {addDoctor,loginAdmin,allDoctors}
