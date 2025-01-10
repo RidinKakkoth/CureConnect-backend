@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import mongoose from "mongoose";
+
 
 const userSchema = new mongoose.Schema(
   {
@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema(
     address: { type: Object, default:{line1:"",line2:""} },
     gender: { type: String, default: "Not Selected"},
     dob: { type: String, default: "Not Selected" },
-    dob: { type: String, default:"000000000" },
+    phone: { type: String, default:"000000000" },
   }
 );
 
